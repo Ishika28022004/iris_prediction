@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iris Flower Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f8ff;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 20px;
+        }
+        input[type="number"] {
+            width: 120px;
+            padding: 8px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        input[type="submit"] {
+            padding: 10px 25px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 30px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.08);
+            display: inline-block;
+        }
+        img {
+            max-width: 200px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        h4 {
+            margin-bottom: 5px;
+        }
+        p {
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🌸 Iris Flower Predictor</h1>
+    <form method="POST">
+        <label>Sepal Length (cm):</label><br>
+        <input type="number" name="sepal_length" step="0.1" required><br>
+
+        <label>Sepal Width (cm):</label><br>
+        <input type="number" name="sepal_width" step="0.1" required><br>
+
+        <label>Petal Length (cm):</label><br>
+        <input type="number" name="petal_length" step="0.1" required><br>
+
+        <label>Petal Width (cm):</label><br>
+        <input type="number" name="petal_width" step="0.1" required><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <h2>🌼 Predicted Flower: {{ prediction }}</h2>
+        <p>🧠 Confidence Score: <strong>{{ confidence }}%</strong></p>
+        {% if image_file %}
+        <img src="{{ url_for('static', filename='images/' + image_file) }}" alt="{{ prediction }}">
+        {% endif %}
+
+        <div style="text-align: left; margin-top: 20px;">
+            <h4>🌿 Care Suggestions:</h4>
+            <p>{{ care_info }}</p>
+
+            <h4>🌤️ Ideal Climate Info:</h4>
+            <p>{{ climate_info }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>
